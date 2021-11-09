@@ -9,14 +9,18 @@ function Calculator() {
     const [inlineError, setInlineError] = useState("");
 
     const calculate = (e) => {
-        console.log(e.target.value)
         switch(e.target.value){
             case "+": setResult(parseInt(firstNumber) + parseInt(secondNumber)) ; return result;
             case "-": setResult(firstNumber - secondNumber); return result;
             case "*": setResult(firstNumber * secondNumber) ; return result;
-            case "/": setResult(firstNumber / secondNumber); return result;
-        
-            default : console.log("Operator does not match"); return;
+            case "/": 
+                if(Number(secondNumber) === 0)
+                    return setInlineError("Cannot divide with zero.")
+                else {
+                    setResult(firstNumber / secondNumber); 
+                    return result;
+                }    
+            default : console.log("Operator does not match."); return;
         }
     }
 
@@ -45,7 +49,6 @@ function Calculator() {
         }
         if(!Number(value)){
             setInlineError('Please type a valid number.')
-            console.log('Please type a valid number.')
             return;
             
         }
@@ -65,8 +68,8 @@ function Calculator() {
         </div>
         <div className="form row">
             <InputText label="First Number" type="number" identifier="firstNumber" onChange={_handleInputChange} placeholder="Enter First Number" />
-            <div>{inlineError}</div>
             <InputText label="Second Number" type="number" identifier="secondNumber" onChange={_handleInputChange} placeholder="Enter Second Number" />
+            <div style={{color:'red' }}>{inlineError}</div>
 
             <div className="form-group">
                 <button onClick={calculate} value="+">Add Numbers</button>

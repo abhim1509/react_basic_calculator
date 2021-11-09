@@ -1,6 +1,6 @@
-const ChildComp = ({ data, city, name }) => {
+const ChildComp = ({ data}) => {
     return (
-        <p>Result: {data} {city} {name}</p>
+        <p>Result: {data}</p>
     )
 }
 
